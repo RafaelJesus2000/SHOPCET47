@@ -9,9 +9,6 @@ namespace ShopCET47.web.Data.Entities
     public class Product
     {
 
-
-
-
         public int id { get; set; }
 
 
