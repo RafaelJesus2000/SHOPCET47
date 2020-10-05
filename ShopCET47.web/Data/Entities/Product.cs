@@ -11,7 +11,7 @@ namespace ShopCET47.web.Data.Entities
 
         public int id { get; set; }
 
-
+        [Required]
         public string Name { get; set; }
 
 
@@ -24,11 +24,11 @@ namespace ShopCET47.web.Data.Entities
 
 
         [Display(Name = "Last Purchase")]
-        public DateTime LastPurchase { get; set; }
+        public DateTime? LastPurchase { get; set; }
 
 
         [Display(Name = "Last Sale")]
-        public DateTime LastSale { get; set; }
+        public DateTime? LastSale { get; set; }
 
 
         [Display(Name = "Is Available")]
