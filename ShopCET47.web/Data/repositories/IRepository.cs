@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 namespace ShopCET47.web.Data.repositories
 {
+ 
+    //Nao esta a ser usado pois esta se a usar o generico
     public interface IRepository
     {
         void AddProduct(Product product);

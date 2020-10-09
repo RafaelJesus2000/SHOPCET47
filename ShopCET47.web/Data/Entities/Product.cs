@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopCET47.web.Data.Entities
 {
-    public class Product
+    public class Product :identity
     {
 
         public int id { get; set; }
@@ -39,7 +39,7 @@ namespace ShopCET47.web.Data.Entities
         public double Stock { get; set; }
 
 
-
+        public User User { get; set; } 
 
     }
 }
