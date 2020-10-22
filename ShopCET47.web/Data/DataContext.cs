@@ -17,6 +17,25 @@ namespace ShopCET47.web.Data
 
         public DbSet<Product> Products { get; set; }
 
-        
+
+        protected override void OnModelCreating(ModelBuilder modelbuilder)
+        {
+            modelbuilder.Entity<Product>()
+               .Property(p => p.Price)
+               .HasColumnType("decinal(18,2)");
+
+
+            //habilitar a cascade delete rule
+            var cascadeFKs = modelbuilder.Model.GetEntityTypes().SelectMany(t => t.GetForeignKeys()).Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+            
+            foreach(var fk in cascadeFKs)
+            {
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
+
+            base.OnModelCreating(modelbuilder);
+        }
+
     }
 }

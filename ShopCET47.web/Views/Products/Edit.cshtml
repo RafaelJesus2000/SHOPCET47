@@ -1,4 +1,5 @@
 ﻿@model ShopCET47.web.Models.ProductDoModel
+    
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,9 +11,11 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="id" />
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImageUrl" />
+
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -60,7 +63,6 @@
         {
             <img src="@Url.Content(Model.ImageUrl)" alt="image" style="width:300px;height:450px;max-width:100%;height:auto;" />
         }
-
     </div>
 </div>
 

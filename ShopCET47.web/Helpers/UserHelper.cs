@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ShopCET47.web.Models;
 
 namespace ShopCET47.web.Helpers
 {
@@ -27,6 +28,11 @@ namespace ShopCET47.web.Helpers
         public async Task<User> GetUserByEmailAsync(string email)
         {
             return await _userManager.FindByEmailAsync(email);
+        }
+
+        public Task<SingInResult> LoginAsync(LoginViewModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -57,7 +57,7 @@ namespace ShopCET47.web.Data.repositories
         //verifica se o produto existe
         public bool ProductExists(int id)
         {
-            return _context.Products.Any(p => p.id == id);
+            return _context.Products.Any(p => p.Id == id);
         }
 
     }

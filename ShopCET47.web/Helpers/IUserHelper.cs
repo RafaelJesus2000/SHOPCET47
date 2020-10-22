@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ShopCET47.web.Data.Entities;
+using ShopCET47.web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace ShopCET47.web.Helpers
 
         Task<IdentityResult> AddUserAsync(User user, string password);
 
-
+        Task<SingInResult> LoginAsync(LoginViewModel model);
 
     }
 }

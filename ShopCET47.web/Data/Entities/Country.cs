@@ -8,7 +8,7 @@ namespace ShopCET47.web.Data.Entities
 {
     public class Country : identity
     {
-        public int id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public string Name { get; set; }
 

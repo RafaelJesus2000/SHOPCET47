@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace ShopCET47.web.Data.Entities
 {
-    public class Product :identity
+    public class Product : identity
     {
 
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
+               // [MaxLength(50, ErrorMessage = "The field {​​​​0}​​​​ only can contain a maximum {​​​​1}​​​​ characters")]
         public string Name { get; set; }
 
 

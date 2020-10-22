@@ -4,6 +4,7 @@ using ShopCET47.web.Data.Entities;
 using ShopCET47.web.Data.repositories;
 using ShopCET47.web.Helpers;
 using ShopCET47.web.Models;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -19,6 +20,10 @@ namespace ShopCET47.web.Controllers
             _productrepository = productrepository;
             _userHelper = userHelper;
         }
+
+
+
+
 
         // GET: Products
         public IActionResult Index()
@@ -61,22 +66,28 @@ namespace ShopCET47.web.Controllers
             if (ModelState.IsValid)
             {
 
+
+
                 var path = string.Empty;
 
                 if (view.ImageFile != null && view.ImageFile.Length > 0)
                 {
+                    var guid = Guid.NewGuid().ToString();
+                    var file = $"{guid}.jpg";
+
+
                     path = Path.Combine(
                         Directory.GetCurrentDirectory(),
                         "wwwroot\\images\\Products",
 
-                        view.ImageFile.FileName);
+                        file);
 
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await view.ImageFile.CopyToAsync(stream);
                     }
 
-                    path = $"~/images/Products/{view.ImageFile.FileName}";
+                    path = $"~/images/Products/{file}";
                 }
 
 
@@ -117,7 +128,7 @@ namespace ShopCET47.web.Controllers
         {
             return new ProductDoModel
             {
-                id = product.id,
+                Id = product.Id,
                 ImageUrl = product.ImageUrl,
                 IsAvailable = product.IsAvailable,
                 LastPurchase = product.LastPurchase,
@@ -133,7 +144,7 @@ namespace ShopCET47.web.Controllers
         {
             return new Product
             {
-                id = view.id,
+                Id = view.Id,
                 ImageUrl = path,
                 IsAvailable = view.IsAvailable,
                 LastPurchase = view.LastPurchase,
@@ -151,9 +162,9 @@ namespace ShopCET47.web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Name,Price,ImageFile,LastPurchase,LastSale,IsAvailable,Stock")] ProductDoModel view)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,ImageFile,LastPurchase,LastSale,IsAvailable,Stock")] ProductDoModel view)
         {
-            if (id != view.id)
+            if (id != view.Id)
             {
                 return NotFound();
             }
@@ -165,25 +176,30 @@ namespace ShopCET47.web.Controllers
 
                     var path = view.ImageUrl;
 
-                    if (view.ImageFile != null && view.ImageFile.Length > 0)
-                    {
 
-
-                        path = Path.Combine(
-                            Directory.GetCurrentDirectory(),
-                            "wwwroot\\images\\Products",
-                            view.ImageFile.FileName);
-
-                        using (var stream = new FileStream(path, FileMode.Create))
+                        if (view.ImageFile != null && view.ImageFile.Length > 0)
                         {
-                            await view.ImageFile.CopyToAsync(stream);
-                        }
+                            path = string.Empty;
 
-                        path = $"~/images/Products/{view.ImageFile.FileName}";
-                    }
+                            var guid = Guid.NewGuid().ToString();
+                            var file = $"{guid}.jpg";
+
+
+                            path = Path.Combine(
+                                Directory.GetCurrentDirectory(),
+                                "wwwroot\\images\\Products",
+                                file);
+
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                await view.ImageFile.CopyToAsync(stream);
+                            }
+
+                            path = $"~/images/Products/{file}";
+                        }
+                    
 
                     var product = this.ToProduct(view, path);
-
 
                     //TODO: Mudar para o user que depois tiver logado
                     product.User = await _userHelper.GetUserByEmailAsync("rafael.neves.jesus@gmail.com");
@@ -192,7 +208,7 @@ namespace ShopCET47.web.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _productrepository.ExistAsync(view.id))
+                    if (!await _productrepository.ExistAsync(view.Id))
                     {
                         return NotFound();
                     }
